@@ -1,0 +1,46 @@
+#Built in DRF TokenAuthentication
+
+1. Add authtoken to installed apps
+INSTALLED_APPS = [
+    'rest_framework.authtoken'
+]
+
+2. Add path 
+from rest_framework.authtoken.views import obtain_auth_token
+urlpatterns = [
+    path('auth/', obtain_auth_token),
+    path('test/<int:pk>/', views.TicketsGetView.as_view(), name='test'),    
+]
+
+3. View for testing 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication
+from rest_framework import permissions  
+
+class TicketsGetView(APIView):
+    #what method to use to auth user
+    authentication_classes = [authentication.TokenAuthentication]
+    #access view if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        serializer = TicketSerializer(ticket)
+        return Response(serializer.data)
+
+4. how to login and access view 
+import requests
+
+#login
+auth_response = requests.post('url/auth', json = {'username':'username, 'password' = 'password'}
+
+#use token to access view
+token = auth_response.json()['token']
+get_response = request.get('url/test/1', headers = {'Authorization':'Token f{token}'}
+
+
+
+
+
+
+
