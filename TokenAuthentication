@@ -32,7 +32,7 @@ class TicketsGetView(APIView):
 import requests
 
 #login
-auth_response = requests.post('url/auth', json = {'username':'username, 'password' = 'password'}
+auth_response = requests.post('url/auth', json = {'username':'username, 'password' : 'password'}
 
 #use token to access view
 token = auth_response.json()['token']
